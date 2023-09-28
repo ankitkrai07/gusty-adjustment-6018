@@ -1,4 +1,12 @@
-import { Box, Button, Input, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { createAccount } from "../Redux/Authentication/action";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -11,22 +19,26 @@ const Signup = () => {
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const onAccountCreateSubmit = (e) => {
     e.preventDefault();
-    const userData = { email, password };
+    const userData = { username, email, password };
+
     console.log(userData);
 
     dispatch(createAccount(userData))
-      .then(() => {
-        toast({
-          title: "Account Created Successfully.",
-          position: "top-center",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        navigate("/");
+      .then((res) => {
+        if (res) {
+          toast({
+            title: "Account Created Successfully.",
+            position: "top-center",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+          navigate("/");
+        }
       })
       .catch(() => {
         toast({
@@ -43,22 +55,36 @@ const Signup = () => {
       <Box>
         {" "}
         <form onSubmit={onAccountCreateSubmit}>
-          <label>Email</label>
-          <Input
-            mt={2}
-            mb={2}
-            type="email"
-            placeholder="Enter Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label>Password</label>
-          <Input
-            mt={2}
-            mb={2}
-            type="password"
-            placeholder="Create Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <FormControl>
+            <FormLabel>Username</FormLabel>
+            <Input
+              mt={2}
+              mb={2}
+              type="text"
+              placeholder="Enter Username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input
+              mt={2}
+              mb={2}
+              type="email"
+              placeholder="Enter Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
+              mt={2}
+              mb={2}
+              type="password"
+              placeholder="Create Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
           <Box ml={2} color="gray" mt={3} mb={3}>
             <Text fontSize="xs">At least 8 characters</Text>
             <Text fontSize="xs">Mix of letters and numbers</Text>

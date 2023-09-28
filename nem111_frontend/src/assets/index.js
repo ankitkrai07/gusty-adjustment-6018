@@ -1,3 +1,4 @@
 import logo from "./logo-no-background.svg";
+import user from "./user.svg";
 
-export { logo };
+export { logo, user };

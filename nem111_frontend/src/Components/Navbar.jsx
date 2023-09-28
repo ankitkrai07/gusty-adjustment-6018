@@ -21,18 +21,66 @@ import {
   Link,
   Divider,
   Text,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Input,
+  Accordion,
+  AccordionItem,
+  AccordionPanel,
+  AccordionIcon,
+  AccordionButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
 } from "@chakra-ui/react";
 import Signup from "../Pages/Signup";
-import { logo } from "../assets/index";
+import { logo, user } from "../assets/index";
 import Login from "../Pages/Login";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link as NewLink } from "react-router-dom";
+import { logoutUser } from "../Redux/Authentication/action";
 
 const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: mainModalIsOpen,
+    onOpen: openMainModal,
+    onClose: closeMainModal,
+  } = useDisclosure();
+  const {
+    isOpen: drawerisOpen,
+    onOpen: drawerOpen,
+    onClose: drawerClose,
+  } = useDisclosure();
+  const btnRef = React.useRef();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const token = useSelector((store) => store.authReducer.token);
+  console.log(token);
+  const isLoggedIn = !!token;
+
+  const tokeLength = localStorage.length;
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    localStorage.removeItem("token");
+  };
+
+  // const handleProfile = () => {
+  //   navigate("/profile");
+  // };
 
   return (
     <>
       <Box
-        display="flex"
+        display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
         justifyContent="space-between"
         p={3}
         alignItems="center"
@@ -59,13 +107,200 @@ const Navbar = () => {
           <Link>Manage Rentals</Link>
           <Link>Advertise</Link>
           <Link>Help</Link>
-          <Link onClick={onOpen}>Sign In</Link>
+          {isLoggedIn ? (
+            <>
+              <Menu>
+                <MenuButton>
+                  <Image src={user} w={6} />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>
+                    <NewLink to="/profile">Profile</NewLink>
+                  </MenuItem>
+                  <MenuItem>
+                    <NewLink>Wishlist</NewLink>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </>
+          ) : (
+            <Link onClick={openMainModal}>Sign In</Link>
+          )}
         </Box>
       </Box>
 
-      {/* Modal */}
+      {/* Hamburger */}
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Box
+        display={{ base: "flex", sm: "flex", md: "flex", lg: "none" }}
+        justifyContent="space-between"
+        p={3}
+        alignItems="center"
+        boxShadow="lg"
+      >
+        <HamburgerIcon onClick={drawerOpen} _hover={{ cursor: "pointer" }} />
+
+        <Drawer
+          isOpen={drawerisOpen}
+          placement="left"
+          size="100%"
+          onClose={drawerClose}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader>
+              <Center>
+                <Box>
+                  <Image w="12" src={logo} />
+                </Box>
+              </Center>
+            </DrawerHeader>
+            <DrawerCloseButton />
+
+            <DrawerBody>
+              <Accordion allowToggle>
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Buy</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Rent</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Sell</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Advertise</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Home Loans</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Agent Finder</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Manage Rentals</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Advertise</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                        <Link>Help</Link>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+
+        <Box>
+          <Image w="12" src={logo} />
+        </Box>
+
+        <Box display="flex" justifyContent="space-around">
+          {tokeLength > 1 ? (
+            <>
+              <Menu>
+                <MenuButton>
+                  <Image src={user} w={6} />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>
+                    <Link>Profile</Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </>
+          ) : (
+            <Link onClick={openMainModal}>Sign In</Link>
+          )}
+        </Box>
+      </Box>
+
+      {/* Sign in Modal */}
+
+      <Modal isOpen={mainModalIsOpen} onClose={closeMainModal}>
         <ModalOverlay />
         <ModalContent borderRadius={20}>
           <ModalCloseButton />

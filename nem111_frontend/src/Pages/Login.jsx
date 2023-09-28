@@ -1,6 +1,6 @@
 import { Box, Button, Input, Text, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LOGIN_FAILURE } from "../Redux/Authentication/actionType";
 import { loginUser } from "../Redux/Authentication/action";
@@ -12,6 +12,7 @@ const Login = () => {
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const token = useSelector((store) => store.authReducer.token);
 
   const onLoginSubmit = () => {
     const userData = { email, password };
@@ -25,7 +26,9 @@ const Login = () => {
           duration: 2000,
           isClosable: true,
         });
-        navigate(location.state, { replace: true });
+        if (token) {
+          navigate(location.state, { replace: true });
+        }
       })
       .catch((err) => {
         // console.log("err", err);

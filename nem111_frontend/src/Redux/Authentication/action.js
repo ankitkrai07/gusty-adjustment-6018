@@ -7,15 +7,25 @@ import {
   SIGNUP_SUCCESS,
 } from "./actionType";
 
+const setTokenInLocalStorage = (token) => {
+  localStorage.setItem("token", token);
+};
+
+// Function to remove the user's token from localStorage
+const removeTokenFromLocalStorage = () => {
+  localStorage.removeItem("token");
+};
+
 export const loginUser = (userData) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
   return axios
-    .get(`https://furlinko.onrender.com/users`, userData)
+    .post(`https://nice-rose-elephant-wrap.cyclic.cloud/users/login`, userData)
     .then((res) => {
+      const { token } = res.data;
+      setTokenInLocalStorage(token);
       console.log("login success", res.data);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
-      return res.data;
     })
     .catch((err) => {
       console.log("login failure", err);
@@ -26,7 +36,10 @@ export const loginUser = (userData) => (dispatch) => {
 export const createAccount = (payload) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   return axios
-    .post(`https://furlinko.onrender.com/users`, payload)
+    .post(
+      `https://nice-rose-elephant-wrap.cyclic.cloud/users/register`,
+      payload
+    )
     .then((res) => {
       console.log("account created", res.data);
       dispatch({ type: SIGNUP_SUCCESS });
@@ -39,5 +52,6 @@ export const createAccount = (payload) => (dispatch) => {
 };
 
 export const logoutUser = () => (dispatch) => {
+  removeTokenFromLocalStorage();
   dispatch({ type: LOGOUT });
 };
