@@ -1,13 +1,14 @@
 import { Box } from "@chakra-ui/react";
+
 import Navbar from "./Components/Navbar";
-import Admin from "./Pages/Admin";
+import { MainRoutes } from "./Pages/MainRoutes";
 
 function App() {
   return (
     <>
       <Box>
         <Navbar />
-        <Admin />
+        <MainRoutes />
       </Box>
     </>
   );
