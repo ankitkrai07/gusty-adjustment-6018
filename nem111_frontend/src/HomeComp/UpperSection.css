@@ -1,0 +1,167 @@
+#UpperSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  background-image: url("../Images/homepageback.JPG");
+  height: 450px;
+}
+
+/* #UpperSection > div {
+    /* border: 1px solid white; */
+/* } */
+*/ #UpperSection > div > h1 {
+  color: #53be1d;
+  font-family: TruliaSans, Trulia-Fallback, sans-serif;
+  font-weight: bold;
+}
+
+#second {
+  /* border: 1px solid red; */
+  margin-top: -6%;
+}
+
+.searchButton {
+  margin-top: 20px;
+}
+
+.searchButtonStyle {
+  padding: 10px 20px;
+  font-size: 24px;
+  border: none;
+  background-color: #0d08b4;
+  color: #2915c1;
+  cursor: pointer;
+}
+
+.search-button {
+  border: 2px solid rgb(16, 192, 42);
+  outline: none;
+  background-color: transparent;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #2c12d7;
+}
+
+.fa-search {
+  font-size: 18px;
+  border: 2px solid rgb(54, 15, 209);
+}
+
+h1 {
+  color: #fff;
+  font-family: TruliaSans, Trulia-Fallback, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+#UpperSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+
+  height: 450px;
+}
+
+#UpperSection > div > h1 {
+  color: #fff;
+  font-family: TruliaSans, Trulia-Fallback, sans-serif;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+#second {
+  margin-top: 0%;
+}
+
+#UpperSection > div > h1 {
+  color: #fff;
+  font-family: TruliaSans, Trulia-Fallback, sans-serif;
+  font-weight: bold;
+  font-size: 48px;
+  margin-top: 20px;
+}
+
+#UpperSection > div > h1 {
+  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 48px;
+  margin-top: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#UpperSection > div > h1 {
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 60px;
+  margin-top: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.button-row button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: #0fc1b8;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.button-row button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #1118e8;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.button-row button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: rgba(5, 40, 178, 0.2);
+  border: 2px solid none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-row button:hover {
+  background-color: #fff;
+  color: #001182;
+  font-weight: 100;
+  font-weight: bold;
+}
+
+/* Media Query for smaller screens */
+@media screen and (max-width: 600px) {
+}
