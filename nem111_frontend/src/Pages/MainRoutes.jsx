@@ -5,25 +5,29 @@ import Signup from "./Signup";
 import Homepage from "./Homepage";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
+import Profile from "../Components/Profile";
+import SingleProperty from "./SingleProperty";
+import Calculator from "./Calculator";
 
 export const MainRoutes = () => {
   const PageRoutes = [
-    {
-      path: "/",
-      element: <Homepage />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-    {
-      path: "*",
-      element: <h1>404 Page Not Found</h1>,
-    },
+    { path: "/", element: <Homepage /> },
+
+    { path: "/login", element: <Login /> },
+
+    { path: "/signup", element: <Signup /> },
+
+    { path: "/profile", element: <Profile /> },
+
+    // { path: "/buyproduct", element: <Buyproduct /> },
+
+    { path: "/buyproduct/:id", element: <SingleProperty /> },
+
+    { path: "/calculator", element: <Calculator /> },
+
+    // { path: "/payment", element: <Payment /> },
+
+    { path: "*", element: <h1>404 Page Not Found</h1> },
   ];
 
   return (
