@@ -94,7 +94,7 @@ const DIV = styled.div`
   .column button {
     margin-top: 20px;
     margin-bottom: 10px;
-    background-color: #007882;
+    background-color: #040082;
     color: white;
     transition: background-color 0.3s, color 0.3s;
     border: none;
