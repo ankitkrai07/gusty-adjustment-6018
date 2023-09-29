@@ -5,12 +5,14 @@ import {
   PRODUCT_SUCCESS,
 } from "./actionTypes";
 
+let url = "https://nice-rose-elephant-wrap.cyclic.cloud";
+
 export const getProducts = (allParams) => (dispatch) => {
   const queryParams = new URLSearchParams(allParams.params).toString();
 
   dispatch({ type: PRODUCT_REQUEST });
   axios
-    .get(`${"url"}/property/?${queryParams}`)
+    .get(`${url}/property/?${queryParams}`)
     .then((res) => {
       dispatch({ type: PRODUCT_SUCCESS, payload: res.data });
     })
