@@ -6,10 +6,12 @@ const cors = require("cors")
 
 const { connection } = require("./db");
 const { userRouter } = require("./routes/user.routes");
+const {productRoutes} = require("./routes/Product.routes")
 app.use(express.json());
 app.use(cors())
 
 app.use("/users", userRouter);
+app.use("/property",productRoutes);
 
 app.get("/", async (req, res) => {
   try {
