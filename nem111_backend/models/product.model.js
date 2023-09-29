@@ -5,26 +5,13 @@ const productSchema = mongoose.Schema(
     title: String,
     description: String,
     type: String,
-    location: {
-      street: String,
-      city: String,
-      state: String,
-      zipcode: String
-    },
+    city: String,
     price: Number,
     bedrooms: Number,
     bathrooms: Number,
     size: Number,
-    features: [String], 
-    images: [String], 
-    agent: {
-      name: String,
-      email: String,
-      phone: String
+   images: [String], 
     },
-    created_at: Date,
-    updated_at: Date
-  },
   {
     versionKey: false,
   }
