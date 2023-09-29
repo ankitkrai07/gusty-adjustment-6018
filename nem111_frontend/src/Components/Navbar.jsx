@@ -66,16 +66,10 @@ const Navbar = () => {
   console.log(token);
   const isLoggedIn = !!token;
 
-  const tokeLength = localStorage.length;
-
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("token");
   };
-
-  // const handleProfile = () => {
-  //   navigate("/profile");
-  // };
 
   return (
     <>
@@ -278,7 +272,7 @@ const Navbar = () => {
         </Box>
 
         <Box display="flex" justifyContent="space-around">
-          {tokeLength > 1 ? (
+          {isLoggedIn ? (
             <>
               <Menu>
                 <MenuButton>
@@ -286,7 +280,7 @@ const Navbar = () => {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <Link>Profile</Link>
+                    <Link to="/profile">Profile</Link>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>

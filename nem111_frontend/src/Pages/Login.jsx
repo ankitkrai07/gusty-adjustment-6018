@@ -17,31 +17,52 @@ const Login = () => {
   const onLoginSubmit = () => {
     const userData = { email, password };
 
-    dispatch(loginUser(userData))
-      .then(() => {
-        toast({
-          title: "Login Successfully!",
-          position: "top-center",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        if (token) {
-          navigate(location.state, { replace: true });
-        }
-      })
-      .catch((err) => {
-        // console.log("err", err);
-        toast({
-          title: "Login Failed",
-          description: "Please check your credentials",
-          position: "top-center",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
-        dispatch({ type: LOGIN_FAILURE });
+    if (
+      userData.email === "admin@example.com" &&
+      userData.password === "admin"
+    ) {
+      // Handle admin login
+      // For example, set a flag in your Redux store
+      // and redirect to the admin page
+      dispatch({ type: "SET_ADMIN_STATUS", payload: true });
+
+      toast({
+        title: "Admin Login Successfully!",
+        position: "top-center",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
       });
+
+      // Redirect to the admin page
+      navigate("/admin", { replace: true });
+    } else {
+      // Handle regular user login
+      dispatch(loginUser(userData))
+        .then(() => {
+          toast({
+            title: "Login Successfully!",
+            position: "top-center",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+          if (token) {
+            navigate(location.state, { replace: true });
+          }
+        })
+        .catch((err) => {
+          toast({
+            title: "Login Failed",
+            description: "Please check your credentials",
+            position: "top-center",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+          dispatch({ type: LOGIN_FAILURE });
+        });
+    }
   };
 
   return (

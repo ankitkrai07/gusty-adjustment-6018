@@ -22,11 +22,6 @@ const Profile = () => {
     location: "",
   });
 
-  // const [username,setUserName] = useState("")
-  // const [mobile,setMobile] = useState("")
-  // const [category,setCategory] = useState("")
-  // const [location,setLocation] = useState("")
-
   const handleSave = () => {};
   return (
     <Box display="flex" flexDirection="column">
