@@ -8,6 +8,13 @@ const userRouter = express.Router();
 
 userRouter.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
+  const passwordReq =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+if (!passwordReq.test(password)) {
+  return res.status(200).json({
+    msg: "Invalid password format! Password format Should contain atleast one uppercase character, one number, special character and length greater then 8.",
+  });
+}
 
   try {
     const user = await UserModel.findOne({ email });
@@ -60,5 +67,30 @@ userRouter.post("/login", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error , Try again" });
   }
 });
+
+
+userRouter.get("/",async(req,res)=>{
+  try {
+    const users = await UserModel.find();
+    res.status(200).json({"message":"Details of users",users})
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error , Try again" });
+  }
+})
+
+userRouter.patch("/update/:id",async(req,res)=>{
+  const payload = req.body;
+  const {id} = req.params;
+  try {
+    if(id){
+      let update = await UserModel.findByIdAndUpdate({_id:id},payload);
+      res.status(200).json({"msg":"Profile has been Updated",update})
+    }else{
+      res.status(400).json({"msg":"Something went wrong, please try again!"})
+    }
+  } catch (error) {
+    res.status(500).json("Internal Server Error")
+  }
+})
 
 module.exports = { userRouter };
