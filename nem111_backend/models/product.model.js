@@ -1,30 +1,31 @@
 const mongoose = require("mongoose");
 
-const productSchema = mongoose.Schema(
-  {
-    title: String,
-    description: String,
+const productSchema = mongoose.Schema({
+  image: String,
+    update: String,
+    owner: String,
     type: String,
-    location: {
-      street: String,
-      city: String,
-      state: String,
-      zipcode: String
-    },
-    price: Number,
-    bedrooms: Number,
-    bathrooms: Number,
-    size: Number,
-    features: [String], 
-    images: [String], 
-    agent: {
-      name: String,
-      email: String,
-      phone: String
-    },
-    created_at: Date,
-    updated_at: Date
-  },
+    details: String,
+    building: String,
+    carpet: String,
+    status: String,
+    floor: String,
+    transaction: String,
+    furnishing: String,
+    facing: String,
+    overlooking: String,
+    ownership: String,
+    car_parking: String,
+    bathroom: String,
+    balcony: String,
+    description: String,
+    total_price: String,
+    calculator: String,
+    latitude: String,
+    longitude: String,
+    price_per_sqft: String,
+    tag: String
+},
   {
     versionKey: false,
   }
