@@ -53,9 +53,10 @@ userRouter.post("/login", async (req, res) => {
             { expiresIn: "6d" }
           );
           const username = user.username;
+          const id = user._id
           res
             .status(200)
-            .json({ message: "Logged In Sucessfully",token, username });
+            .json({ message: "Logged In Sucessfully",token, username ,id});
         } else {
           res.status(400).json({ warning: "Wrong Password!" });
         }

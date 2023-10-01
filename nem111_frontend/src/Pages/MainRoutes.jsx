@@ -8,6 +8,7 @@ import Navbar from "../Components/Navbar";
 import Profile from "../Components/Profile";
 import SingleProperty from "./SingleProperty";
 import Calculator from "./Calculator";
+import { BuyProperty } from "./BuyProperty/buyProperty";
 
 export const MainRoutes = () => {
   const PageRoutes = [
@@ -19,7 +20,7 @@ export const MainRoutes = () => {
 
     { path: "/profile", element: <Profile /> },
 
-    // { path: "/buyproduct", element: <Buyproduct /> },
+    { path: "/buyproduct", element: <BuyProperty /> },
 
     { path: "/buyproduct/:id", element: <SingleProperty /> },
 
