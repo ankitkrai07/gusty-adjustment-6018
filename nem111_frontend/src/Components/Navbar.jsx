@@ -104,7 +104,7 @@ const Navbar = () => {
       >
         {/* First Links */}
         <Box display="flex" justifyContent="space-around" w="35%">
-          <Link>Buy</Link>
+          <NewLink to="/buyproduct">Buy</NewLink>
           <Link>Rent</Link>
           <Link>Sell</Link>
           <Link>Home Loans</Link>
