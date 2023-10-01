@@ -12,11 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ChakraProvider>
       <BrowserRouter>
-        {/* <React.StrictMode> */}
-        {/* <dotenv> */}
         <App />
-        {/* </dotenv> */}
-        {/* </React.StrictMode> */}
       </BrowserRouter>
     </ChakraProvider>
   </Provider>
