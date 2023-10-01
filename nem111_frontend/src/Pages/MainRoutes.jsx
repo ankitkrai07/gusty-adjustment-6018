@@ -8,6 +8,8 @@ import Navbar from "../Components/Navbar";
 import Profile from "../Components/Profile";
 import SingleProperty from "./SingleProperty";
 import Calculator from "./Calculator";
+import Payment from "./Payment";
+import { WishlistItem } from "./WishlistItem";
 
 export const MainRoutes = () => {
   const PageRoutes = [
@@ -23,9 +25,10 @@ export const MainRoutes = () => {
 
     { path: "/buyproduct/:id", element: <SingleProperty /> },
 
+    { path: "/wishlist", element: <WishlistItem /> },
     { path: "/calculator", element: <Calculator /> },
 
-    // { path: "/payment", element: <Payment /> },
+    { path: "/payment", element: <Payment /> },
 
     { path: "*", element: <h1>404 Page Not Found</h1> },
   ];
