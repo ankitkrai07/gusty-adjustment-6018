@@ -26,12 +26,13 @@ const Login = () => {
           duration: 2000,
           isClosable: true,
         });
+        setEmail("");
+        setPassword("");
         if (token) {
           navigate(location.state, { replace: true });
         }
       })
       .catch((err) => {
-        // console.log("err", err);
         toast({
           title: "Login Failed",
           description: "Please check your credentials",
