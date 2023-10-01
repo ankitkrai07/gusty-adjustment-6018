@@ -1,6 +1,4 @@
 import {
-  ADD_NEW_PRODUCT,
-  ADD_NEW_SALES,
   ADD_NEW_USERS,
   DELETE_PRODUCT_SUCCESS,
   FETCH_FAILURE,
@@ -10,7 +8,7 @@ import {
 } from "./actionType";
 
 const initialState = {
-  product: [],
+  user: [],
   isLoading: false,
   isError: false,
 };
@@ -20,28 +18,28 @@ export const reducer = (state = initialState, { type, payload }) => {
     case FETCH_REQUEST:
       return { ...state, isLoading: true };
     case FETCH_FAILURE:
-      return { ...state, isLoading: false, isError: true };
+      return { ...state, isLoading: false, isError: false };
     case POST_FETCH_SUCCESS:
       return { ...state, isLoading: false };
     case GET_FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        product: payload,
         sales: payload,
+        user: payload,
       };
-    case ADD_NEW_PRODUCT:
+
+    case ADD_NEW_USERS:
       return {
         ...state,
         isLoading: false,
-        product: [...state.product, payload],
+        user: [...state.user, payload],
       };
-
     case DELETE_PRODUCT_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        product: state.product.filter((el) => el.id !== payload),
+        user: state.user.filter((el) => el.id !== payload),
       };
     default:
       return state;

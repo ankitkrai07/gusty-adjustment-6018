@@ -25,29 +25,25 @@ import {
 import React, { useEffect, useState } from "react";
 // import { plush } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUsers, getUsers, postUsers } from "../Redux/Product/action";
+import { deleteUsers, getUsers, postUsers } from "../Redux/Users/action";
+import { GET_FETCH_SUCCESS } from "../Redux/Users/actionType";
 
 const initialState = {
   id: 0,
-  name: "",
+  username: "",
   email: "",
 };
 
 const AdminUser = () => {
   const [data, setData] = useState(initialState);
-  const users = useSelector((store) => store.productReducer.users);
+  const user = useSelector((store) => store.userReducer.user);
+  // console.log(user);
   const dispatch = useDispatch();
   const {
     isOpen: addUsersModalOpen,
     onOpen: onAddUsersModalOpen,
     onClose: onAddUsersModalClose,
   } = useDisclosure();
-
-  // const {
-  //   isOpen: editUsersModalOpen,
-  //   onOpen: onEditUsersModalOpen,
-  //   onClose: onEditUsersModalClose,
-  // } = useDisclosure();
 
   const handelChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +55,7 @@ const AdminUser = () => {
       };
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postUsers(data));
@@ -70,7 +67,15 @@ const AdminUser = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    dispatch(deleteUsers(id));
+    const updatedUser = user.users.filter((el) => el._id !== id);
+    dispatch({ type: GET_FETCH_SUCCESS, payload: updatedUser });
+    dispatch(deleteUsers(id))
+      .then(() => {
+        console.log(`Product with ID ${id} deleted successfully.`);
+      })
+      .catch((error) => {
+        console.error(`Error deleting product with ID ${id}:`, error);
+      });
   };
 
   return (
@@ -155,7 +160,7 @@ const AdminUser = () => {
       </Center>
 
       <Center>
-        <TableContainer w="70%" borderRadius={8} boxShadow={"md"} m={8} p={8}>
+        <TableContainer w="95%" borderRadius={8} boxShadow={"md"} m={8} p={8}>
           <Table>
             <Thead>
               <Tr>
@@ -165,7 +170,21 @@ const AdminUser = () => {
                 <Th>Delete</Th>
               </Tr>
             </Thead>
-            <Tbody></Tbody>
+            <Tbody>
+              {Array.isArray(user.users) &&
+                user.users.map((el) => (
+                  <Tr key={el._id}>
+                    <Td>{el._id}</Td>
+                    <Td>{el.username}</Td>
+                    <Td>{el.email}</Td>
+                    <Td>
+                      <Button onClick={() => handleDelete(el._id)}>
+                        Delete
+                      </Button>
+                    </Td>
+                  </Tr>
+                ))}
+            </Tbody>
           </Table>
         </TableContainer>
       </Center>

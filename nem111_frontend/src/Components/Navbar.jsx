@@ -46,6 +46,7 @@ import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link as NewLink } from "react-router-dom";
 import { logoutUser } from "../Redux/Authentication/action";
+import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
 const Navbar = () => {
   const {
@@ -58,18 +59,39 @@ const Navbar = () => {
     onOpen: drawerOpen,
     onClose: drawerClose,
   } = useDisclosure();
+  const {
+    isOpen: modalIsOpen,
+    onOpen: modalOpen,
+    onClose: modalClose,
+  } = useDisclosure();
+
   const btnRef = React.useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // const user = useSelector((store) => store.userReducer.user);
   const token = useSelector((store) => store.authReducer.token);
-  console.log(token);
+  console.log(user);
   const isLoggedIn = !!token;
 
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("token");
   };
+
+  const handleAdmin = () => {
+    navigate("/loginAdmin");
+  };
+  const handleAdminRegister = () => {
+    navigate("/registerAdmin");
+  };
+
+  const id = localStorage.getItem("id");
+  // const handleProfile = () => {
+  //   // const profileEdit = user.find((el) => el._id === id);
+
+  //   navigate(`/profile`);
+  // };
 
   return (
     <>
@@ -280,7 +302,7 @@ const Navbar = () => {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <Link to="/profile">Profile</Link>
+                    <NewLink to="/profile">Profile</NewLink>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
@@ -341,12 +363,36 @@ const Navbar = () => {
                       Forgot Your Password?
                     </Button>
                   </Center>
-
                   <Divider />
-
                   <Center>
-                    <Text mt={4} mb={4} fontSize="large">
-                      Or connect with:
+                    <Text
+                      mt={2}
+                      mb={2}
+                      fontSize="large"
+                      fontWeight="semibold"
+                      _hover={{
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                      }}
+                      onClick={handleAdmin}
+                    >
+                      Login as Admin
+                    </Text>
+                  </Center>
+                  <Center>Or</Center>
+                  <Center>
+                    <Text
+                      mt={2}
+                      mb={2}
+                      fontSize="large"
+                      fontWeight="semibold"
+                      _hover={{
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                      }}
+                      onClick={handleAdminRegister}
+                    >
+                      Register as Admin
                     </Text>
                   </Center>
                 </TabPanel>
@@ -366,6 +412,91 @@ const Navbar = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
+
+      {/* Login as Admin
+
+      <Modal isOpen={modalIsOpen} onClose={modalClose}>
+        <ModalOverlay />
+        <ModalContent borderRadius={20}>
+          <ModalCloseButton />
+          <ModalBody>
+            <Center>
+              <Heading
+                as="h4"
+                size="md"
+                fontSize="2xl"
+                mt={5}
+                fontFamily="serif"
+                fontWeight="semibold"
+              >
+                Welcome to HomeSweeter Admin
+              </Heading>
+            </Center>
+
+            <Tabs mt={5}>
+              <TabList>
+                <Tab>Sign In Admin</Tab>
+                <Tab>Register as Admin</Tab>
+              </TabList>
+
+              <TabPanels>
+                <TabPanel>
+                  <LoginAsAdmin />
+                  <Center>
+                    <Button
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      p={2}
+                      mt={3}
+                      mb={3}
+                      w="100%"
+                      color="#006aff"
+                      fontWeight="semibold"
+                      backgroundColor="white"
+                      _hover={{
+                        border: "2px solid #002aff",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      Forgot Your Password?
+                    </Button>
+                  </Center>
+
+                  <Divider />
+
+                  <Center>
+                    <Text
+                      mt={4}
+                      mb={4}
+                      fontSize="large"
+                      fontWeight="semibold"
+                      _hover={{
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                      }}
+                      onClick={modalOpen}
+                    >
+                      Login as Admin
+                    </Text>
+                  </Center>
+                </TabPanel>
+
+                <TabPanel>
+                  <Signup />
+                  <Divider />
+
+                  <Center>
+                    <Text mt={4} mb={4} fontSize="large">
+                      Or connect with:
+                    </Text>
+                  </Center>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </ModalBody>
+        </ModalContent>
+      </Modal> */}
     </>
   );
 };

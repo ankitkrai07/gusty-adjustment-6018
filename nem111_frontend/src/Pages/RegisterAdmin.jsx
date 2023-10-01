@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormLabel,
   Input,
@@ -8,40 +9,35 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { createAccount } from "../Redux/Authentication/action";
+import { createAccount } from "../Redux/Admin/action";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const Signup = () => {
+const RegisterAdmin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [adminName, setAdminName] = useState("");
 
   const onAccountCreateSubmit = (e) => {
     e.preventDefault();
-    const userData = { username, email, password };
+    const userData = { adminName, email, password };
 
     console.log(userData);
 
     dispatch(createAccount(userData))
-      .then((res) => {
-        if (res) {
-          toast({
-            title: "Account Created Successfully.",
-            position: "top-center",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
-          setEmail("");
-          setPassword("");
-          setUsername("");
-          navigate("/");
-        }
+      .then(() => {
+        toast({
+          title: "Account Created Successfully.",
+          position: "top-center",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        navigate("/admin");
       })
       .catch(() => {
         toast({
@@ -53,37 +49,36 @@ const Signup = () => {
         });
       });
   };
+
   return (
-    <>
-      <Box>
+    <Center>
+      <Box w="40%" mt="2rem" boxShadow="xl" p={9} borderRadius={18}>
         {" "}
         <form onSubmit={onAccountCreateSubmit}>
           <FormControl>
             <FormLabel>Username</FormLabel>
             <Input
-              required
               mt={2}
               mb={2}
               type="text"
               placeholder="Enter Username"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setAdminName(e.target.value)}
             />
           </FormControl>
           <FormControl>
             <FormLabel>Email</FormLabel>
             <Input
-              required
               mt={2}
               mb={2}
               type="email"
               placeholder="Enter Email"
               onChange={(e) => setEmail(e.target.value)}
+              isRequired
             />
           </FormControl>
           <FormControl>
             <FormLabel>Password</FormLabel>
             <Input
-              required
               mt={2}
               mb={2}
               type="password"
@@ -112,8 +107,8 @@ const Signup = () => {
           </Button>
         </form>
       </Box>
-    </>
+    </Center>
   );
 };
 
-export default Signup;
+export default RegisterAdmin;

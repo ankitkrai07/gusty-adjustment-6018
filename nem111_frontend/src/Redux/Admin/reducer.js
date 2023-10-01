@@ -1,19 +1,20 @@
 import {
+  ADD_NEW_ADMIN,
   ADMIN_LOGIN_FAILURE,
   ADMIN_LOGIN_REQUEST,
   ADMIN_LOGIN_SUCCESS,
   ADMIN_LOGOUT,
 } from "./actionType";
 
-const intialstate = {
-  users: {},
-  isAdminAuth: false,
+const initialState = {
+  admin: {},
+  isAuth: false,
   token: "",
   isLoading: false,
   isError: false,
 };
 
-export const reducer = (state = intialstate, { type, payload }) => {
+export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADMIN_LOGIN_REQUEST:
       return {
@@ -25,7 +26,6 @@ export const reducer = (state = intialstate, { type, payload }) => {
       return {
         ...state,
         isAuth: true,
-        isAdminAuth: true,
         token: payload,
         isLoading: false,
         isError: false,
@@ -36,8 +36,13 @@ export const reducer = (state = intialstate, { type, payload }) => {
         isLoading: false,
         isError: true,
       };
+    case ADD_NEW_ADMIN:
+      return {
+        ...state,
+        isLoading: false,
+      };
     case ADMIN_LOGOUT:
-      return intialstate;
+      return initialState;
     default:
       return state;
   }

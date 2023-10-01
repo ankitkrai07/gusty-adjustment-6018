@@ -3,6 +3,7 @@ import {
   Button,
   Center,
   Heading,
+  Image,
   Input,
   Modal,
   ModalBody,
@@ -25,18 +26,26 @@ import {
 import React, { useEffect, useState } from "react";
 // import { plush } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteProduct,
+  getProduct,
+  postProduct,
+} from "../Redux/Product/action";
+import { GET_FETCH_SUCCESS } from "../Redux/Product/actionType";
 
 const initialState = {
   id: 0,
-  name: "",
-  price: 0,
+  title: "",
   image: "",
-  category: "",
+  type: "",
+  total_price: 0,
+  ownership: "",
 };
 
 const AdminPages = () => {
   const [data, setData] = useState(initialState);
   const product = useSelector((store) => store.productReducer.product);
+  // console.log("Product data from Redux:", product);
   const dispatch = useDispatch();
 
   const handelChange = (e) => {
@@ -52,13 +61,13 @@ const AdminPages = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(postProduct(data));
+    dispatch(postProduct(data));
     setData(initialState);
   };
 
-  //   useEffect(() => {
-  //     dispatch(getProduct());
-  //   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
 
   const {
     isOpen: addProductModalOpen,
@@ -66,9 +75,17 @@ const AdminPages = () => {
     onClose: onAddPoductModalClose,
   } = useDisclosure();
 
-  //   const handleDelete = (id) => {
-  //     dispatch(deleteProduct(id));
-  //   };
+  const handleDelete = (id) => {
+    const updatedProducts = product.data.filter((el) => el._id !== id);
+    dispatch({ type: GET_FETCH_SUCCESS, payload: updatedProducts });
+    dispatch(deleteProduct(id))
+      .then(() => {
+        console.log(`Product with ID ${id} deleted successfully.`);
+      })
+      .catch((error) => {
+        console.error(`Error deleting product with ID ${id}:`, error);
+      });
+  };
 
   return (
     <>
@@ -97,36 +114,14 @@ const AdminPages = () => {
                 <ModalBody m={6}>
                   <form onSubmit={handleSubmit}>
                     <Heading as="h5" size="sm" pb={4}>
-                      Id:
-                    </Heading>
-                    <Input
-                      type="number"
-                      placeholder="Product Id"
-                      mb={4}
-                      name="id"
-                      value={data.id}
-                      onChange={handelChange}
-                    />
-                    <Heading as="h5" size="sm" pb={4}>
-                      Product Name:
+                      Product Title:
                     </Heading>
                     <Input
                       type="text"
-                      placeholder="Product Name"
+                      placeholder="Product Title"
                       mb={4}
-                      name="name"
-                      value={data.name}
-                      onChange={handelChange}
-                    />
-                    <Heading as="h5" size="sm" pb={4}>
-                      Product Price:
-                    </Heading>
-                    <Input
-                      type="number"
-                      placeholder="Product Price"
-                      mb={4}
-                      name="price"
-                      value={data.price}
+                      name="title"
+                      value={data.title}
                       onChange={handelChange}
                     />
                     <Heading as="h5" size="sm" pb={4}>
@@ -134,10 +129,43 @@ const AdminPages = () => {
                     </Heading>
                     <Input
                       type="text"
-                      placeholder="Total Price"
+                      placeholder="Product Image URL"
                       mb={4}
                       name="image"
                       value={data.image}
+                      onChange={handelChange}
+                    />
+                    <Heading as="h5" size="sm" pb={4}>
+                      Product Ownership:
+                    </Heading>
+                    <Input
+                      type="text"
+                      placeholder="Product Ownership"
+                      mb={4}
+                      name="ownership"
+                      value={data.ownership}
+                      onChange={handelChange}
+                    />
+                    <Heading as="h5" size="sm" pb={4}>
+                      Product Type:
+                    </Heading>
+                    <Input
+                      type="text"
+                      placeholder="Product Type"
+                      mb={4}
+                      name="type"
+                      value={data.type}
+                      onChange={handelChange}
+                    />
+                    <Heading as="h5" size="sm" pb={4}>
+                      Product Price:
+                    </Heading>
+                    <Input
+                      type="text"
+                      placeholder="Product Price"
+                      mb={4}
+                      name="price"
+                      value={data.price}
                       onChange={handelChange}
                     />
                     <Center>
@@ -171,19 +199,41 @@ const AdminPages = () => {
       </Center>
 
       <Center>
-        <TableContainer w="70%" borderRadius={8} boxShadow={"md"} m={8} p={8}>
+        <TableContainer w="95%" borderRadius={8} boxShadow={"md"} m={8} p={8}>
           <Table>
             <Thead>
               <Tr>
                 <Th>Id</Th>
-                <Th>Product Name</Th>
-                <Th>Product Image</Th>
-                <Th>Product Category</Th>
-                <Th>Product Price</Th>
+                <Th>Title</Th>
+                <Th>Image</Th>
+                <Th>Ownership</Th>
+                <Th>Type</Th>
+                <Th>Price</Th>
                 <Th>Delete</Th>
               </Tr>
             </Thead>
-            <Tbody></Tbody>
+            <Tbody>
+              {Array.isArray(product.data) &&
+                product.data.map((el) => {
+                  return (
+                    <Tr key={el._id}>
+                      <Td>{el._id}</Td>
+                      <Td>{el.title}</Td>
+                      <Td>
+                        <Image src={el.image} />
+                      </Td>
+                      <Td>{el.ownership}</Td>
+                      <Td>{el.type}</Td>
+                      <Td>{el.total_price}</Td>
+                      <Td>
+                        <Button onClick={() => handleDelete(el._id)}>
+                          Delete
+                        </Button>
+                      </Td>
+                    </Tr>
+                  );
+                })}
+            </Tbody>
           </Table>
         </TableContainer>
       </Center>
