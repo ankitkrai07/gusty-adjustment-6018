@@ -10,6 +10,8 @@ import SingleProperty from "./SingleProperty";
 import Calculator from "./Calculator";
 import Payment from "./Payment";
 import { WishlistItem } from "./WishlistItem";
+import { BuyProperty } from "./BuyProperty/buyProperty";
+
 
 export const MainRoutes = () => {
   const PageRoutes = [
@@ -21,7 +23,7 @@ export const MainRoutes = () => {
 
     { path: "/profile", element: <Profile /> },
 
-    // { path: "/buyproduct", element: <Buyproduct /> },
+    { path: "/buyproduct", element: <BuyProperty /> },
 
     { path: "/buyproduct/:id", element: <SingleProperty /> },
 

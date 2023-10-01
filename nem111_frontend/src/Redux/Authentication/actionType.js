@@ -5,3 +5,5 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 
 export const LOGOUT = "LOGOUT";
+
+export const ADD_REGISTERED_EMAILS = "ADD_REGISTERED_EMAILS";
