@@ -25,9 +25,11 @@ const LoginAsAdmin = () => {
           duration: 2000,
           isClosable: true,
         });
-        if (token) {
-          navigate("/admin");
-        }
+        setEmail("");
+        setPassword("");
+        // if (token) {
+        navigate("/admin");
+        // }
       })
       .catch((err) => {
         toast({
