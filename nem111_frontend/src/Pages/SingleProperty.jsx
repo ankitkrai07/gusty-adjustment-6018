@@ -29,7 +29,7 @@ import {
 
 const SingleProperty = () => {
   const { id } = useParams();
-  const token = localStorage.getItem("frontendtoken");
+  const token = localStorage.getItem("token");
   const [currentProduct, setCurrentProduct] = useState({});
   const [loading, setLoading] = useState(false);
 

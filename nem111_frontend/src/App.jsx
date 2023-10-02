@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Box>
-        <Navbar />
+        {/* <Navbar /> */}
         <MainRoutes />
       </Box>
     </>
