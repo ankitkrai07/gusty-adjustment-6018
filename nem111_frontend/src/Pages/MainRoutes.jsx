@@ -15,6 +15,7 @@ import LoginAsAdmin from "./LoginAsAdmin";
 import RegisterAdmin from "./RegisterAdmin";
 import Admin from "./Admin";
 
+
 export const MainRoutes = () => {
   const PageRoutes = [
     { path: "/", element: <Homepage /> },

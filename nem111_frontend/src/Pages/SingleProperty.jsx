@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Amenities from "../Images/Amenities.png";
 import axios from "axios";
 import {
@@ -26,19 +26,23 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
+import config from "../config";
 
 const SingleProperty = () => {
   const { id } = useParams();
   const token = localStorage.getItem("token");
   const [currentProduct, setCurrentProduct] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const singlePage = async () => {
     setLoading(true);
-    let data = await axios
-      .get(`${"url"}/property/${id}`)
+    const data = await axios
+      .get(`${config.REACT_APP_SERVER}/property/${id}`)
       .then((res) => {
-        setCurrentProduct(res.data);
+        setCurrentProduct(res.data.data);
+        console.log(res.data);
+        localStorage.setItem("cart", JSON.stringify(res.data.data));
       })
       .catch((err) => {
         console.log(err);
@@ -53,7 +57,7 @@ const SingleProperty = () => {
   }, []);
 
   const addToCart = () => {
-    localStorage.setItem("cart", currentProduct.total_price_num);
+    navigate("/payment");
   };
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -320,7 +324,6 @@ const SingleProperty = () => {
 
           {token ? (
             <Link to="/payment">
-              {" "}
               <Button
                 rounded={"none"}
                 w={"full"}
