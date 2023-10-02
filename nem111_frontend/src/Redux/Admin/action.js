@@ -9,12 +9,25 @@ import {
 } from "./actionType";
 import config from "../../config";
 
+const setTokenInLocalStorage = (token) => {
+  localStorage.setItem("adminToken", token);
+};
+
+// Function to remove the user's token from localStorage
+const removeTokenFromLocalStorage = () => {
+  localStorage.removeItem("adminToken");
+};
+
 export const adminUser = (userData) => (dispatch) => {
   dispatch({ type: ADMIN_LOGIN_REQUEST });
 
   return axios
     .post(`${config.REACT_APP_SERVER}/admins/login`, userData)
     .then((res) => {
+      const { token } = res.data;
+      // console.log(id);
+      setTokenInLocalStorage(token);
+      // localStorage.setItem("id", JSON.stringify(id));
       console.log("login success", res.data);
       dispatch({ type: ADMIN_LOGIN_SUCCESS, payload: res.data });
     })
@@ -40,5 +53,6 @@ export const createAccount = (payload) => (dispatch) => {
 };
 
 export const logoutUser = () => (dispatch) => {
+  removeTokenFromLocalStorage();
   dispatch({ type: ADMIN_LOGOUT });
 };

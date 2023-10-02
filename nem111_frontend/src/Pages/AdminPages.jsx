@@ -78,13 +78,7 @@ const AdminPages = () => {
   const handleDelete = (id) => {
     const updatedProducts = product.data.filter((el) => el._id !== id);
     dispatch({ type: GET_FETCH_SUCCESS, payload: updatedProducts });
-    dispatch(deleteProduct(id))
-      .then(() => {
-        console.log(`Product with ID ${id} deleted successfully.`);
-      })
-      .catch((error) => {
-        console.error(`Error deleting product with ID ${id}:`, error);
-      });
+    dispatch(deleteProduct(id));
   };
 
   return (
@@ -218,7 +212,7 @@ const AdminPages = () => {
                   return (
                     <Tr key={el._id}>
                       <Td>{el._id}</Td>
-                      <Td>{el.title}</Td>
+                      <Td>{el.details}</Td>
                       <Td>
                         <Image src={el.image} />
                       </Td>

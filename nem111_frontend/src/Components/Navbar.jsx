@@ -71,27 +71,30 @@ const Navbar = () => {
 
   // const user = useSelector((store) => store.userReducer.user);
   const token = useSelector((store) => store.authReducer.token);
-  console.log(user);
-  const isLoggedIn = !!token;
+  const adminToken = useSelector((store) => store.adminReducer.token);
+  // console.log(user);
+  const isLoggedIn = !!token || !!adminToken;
 
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("token");
+    localStorage.removeItem("adminToken");
+    navigate("/");
   };
 
   const handleAdmin = () => {
-    navigate("/loginAdmin");
+    navigate("/adminLogin");
   };
   const handleAdminRegister = () => {
-    navigate("/registerAdmin");
+    navigate("/adminRegister");
   };
 
   const id = localStorage.getItem("id");
-  // const handleProfile = () => {
-  //   // const profileEdit = user.find((el) => el._id === id);
+  const handleHomepage = () => {
+    // const profileEdit = user.find((el) => el._id === id);
 
-  //   navigate(`/profile`);
-  // };
+    navigate(`/`);
+  };
 
   return (
     <>
@@ -113,7 +116,7 @@ const Navbar = () => {
 
         {/* Logo */}
 
-        <Box>
+        <Box onClick={handleHomepage} _hover={{ cursor: "pointer" }}>
           <Image w="12" src={logo} />
         </Box>
 
@@ -134,7 +137,7 @@ const Navbar = () => {
                     <NewLink to="/profile">Profile</NewLink>
                   </MenuItem>
                   <MenuItem>
-                    <NewLink>Wishlist</NewLink>
+                    <NewLink to="/wishlist">Wishlist</NewLink>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
@@ -289,7 +292,7 @@ const Navbar = () => {
           </DrawerContent>
         </Drawer>
 
-        <Box>
+        <Box onClick={handleHomepage} _hover={{ cursor: "pointer" }}>
           <Image w="12" src={logo} />
         </Box>
 

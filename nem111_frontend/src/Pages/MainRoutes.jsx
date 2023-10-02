@@ -11,6 +11,10 @@ import Calculator from "./Calculator";
 import Payment from "./Payment";
 import { WishlistItem } from "./WishlistItem";
 import { BuyProperty } from "./BuyProperty/buyProperty";
+import LoginAsAdmin from "./LoginAsAdmin";
+import RegisterAdmin from "./RegisterAdmin";
+import Admin from "./Admin";
+
 
 export const MainRoutes = () => {
   const PageRoutes = [
@@ -19,6 +23,12 @@ export const MainRoutes = () => {
     { path: "/login", element: <Login /> },
 
     { path: "/signup", element: <Signup /> },
+
+    { path: "/admin", element: <Admin /> },
+
+    { path: "/adminLogin", element: <LoginAsAdmin /> },
+
+    { path: "/adminRegister", element: <RegisterAdmin /> },
 
     { path: "/profile", element: <Profile /> },
 
