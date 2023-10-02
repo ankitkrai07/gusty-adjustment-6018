@@ -12,7 +12,6 @@ import Payment from "./Payment";
 import { WishlistItem } from "./WishlistItem";
 import { BuyProperty } from "./BuyProperty/buyProperty";
 
-
 export const MainRoutes = () => {
   const PageRoutes = [
     { path: "/", element: <Homepage /> },

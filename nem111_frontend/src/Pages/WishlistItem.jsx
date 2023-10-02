@@ -23,7 +23,7 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export const WishlistItem = ({ product }) => {
-  const token = localStorage.getItem("frontendtoken");
+  const token = localStorage.getItem("token");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentUrl = window.location.href;
   const { isOpen, onOpen, onClose } = useDisclosure();
