@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { AdminModel } = require("../models/user.model");
+const { AdminModel } = require("../models/admin.model");
 
 const adminRouter = express.Router();
 
@@ -26,7 +26,7 @@ adminRouter.post("/register", async (req, res) => {
           const newUser = new AdminModel({ adminName, email, password: hash });
           await newUser.save();
           res.status(200).json({
-            message: "Sweethome Account has been Created Successfully",
+            message: "sweetHome Admin Account has been Created Successfully",
           });
         }
       });
@@ -67,5 +67,15 @@ adminRouter.post("/login", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error , Try again" });
   }
 });
+
+
+adminRouter.get("/",async(req,res)=>{
+  try {
+    const adminDetails = await AdminModel.find();
+    res.status(200).json({"message":"Admin details",adminDetails})
+  } catch (error) {
+    res.status(500).json("Internal server Error")
+  }
+})
 
 module.exports = { adminRouter };
