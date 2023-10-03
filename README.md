@@ -1,4 +1,4 @@
-# Project Title: HomeSweet - Your Real Estate Marketplace
+# Project Title: HomeSweeter - Your Real Estate Marketplace
 
 ## Project Description:
 HomeSweeter is your one-stop destination for all your real estate needs. Whether you're looking to buy, rent, or sell a property, our platform provides a seamless experience. Here's what you need to know about HomeSweeter:
